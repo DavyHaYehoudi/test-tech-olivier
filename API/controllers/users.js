@@ -6,19 +6,20 @@ module.exports.getAllUsers = async (req, res) => {
 };
 
 module.exports.createUser = async (req, res) => {
-  const { name, customerNumber, adress, contact } = req.body;
+  const { name, customerNumber, adress} = req.body.data;
+  console.log("api profil user :",name, customerNumber, adress);
 
-  const userIsExisted = await UserModel.findOne({ customerNumber });
-  if (!userIsExisted) {
-    const user = await UserModel.create({
-      name,
-      customerNumber,
-      adress,
-    });
-    res.status(201).json(user);
-  } else {
-    res.status(200).json({ message: "Customer already existed" });
-  }
+  // const userIsExisted = await UserModel.findOne({ customerNumber });
+  // if (!userIsExisted) {
+  //   const user = await UserModel.create({
+  //     name,
+  //     customerNumber,
+  //     adress,
+  //   });
+  //   res.status(201).json(user);
+  // } else {
+  //   res.status(200).json({ message: "Customer already existed" });
+  // }
 };
 
 module.exports.deleteUser = async (req, res) => {

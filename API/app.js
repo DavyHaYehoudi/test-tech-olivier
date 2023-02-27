@@ -1,7 +1,10 @@
 // Importation des modules nécessaires
 const express = require('express');
 const { default: mongoose } = require('mongoose');
+const { createUser } = require('./controllers/users');
 const app = express();
+const cors = require('cors')
+const bodyParser = require("body-parser");
 
 //Connexion database
 mongoose
@@ -16,10 +19,20 @@ mongoose
 // Configuration de l'application
 app.use(express.json()); // Permet de traiter les données envoyées au format JSON
 
+app.use(cors())
+app.use(bodyParser.json());
+// app.use(
+//   bodyParser.urlencoded({
+//     extended: false,
+//   })
+// );
+
 // Définition des routes
 app.get('/', (req, res) => {
   res.send('Bienvenue sur mon site !');
 });
+
+app.post("/user",createUser)
 
 // Lancement du serveur
 app.listen(2800, () => {
