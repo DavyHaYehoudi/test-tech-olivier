@@ -1,23 +1,35 @@
-import React, { useState } from 'react';
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
-import FormCustomer from './FormCustomer';
+import axios from "axios";
+import React, { useState } from "react";
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
+import FormCustomer from "./FormCustomer";
 
-function AddCustomerModal() {
+function AddCustomerModal({ listCustomerRefresh }) {
   const [show, setShow] = useState(false);
-  const[dataCustomer,setDataCustomer]=useState(null)
+  const [dataCustomer, setDataCustomer] = useState(null);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const handleAddCustomerFromChild=(data)=>{
-    setDataCustomer(data)
-  }
+  const handleAddCustomerFromChild = (data) => {
+    setDataCustomer(data);
+  };
 
-  const createCustomer=()=>{
-    //axios => dataCustomer
-
-  }
+  const createCustomer = () => {
+    const data = {
+      name: dataCustomer.name,
+      managerName: dataCustomer.managerName,
+      customerNumber: dataCustomer.customerNumber,
+      adress: { city: dataCustomer.city, street: dataCustomer.street },
+    };
+    axios
+      .post("http://localhost:2800/user", { data })
+      .then((res) => {
+        listCustomerRefresh();
+        setShow(false);
+      })
+      .catch();
+  };
 
   return (
     <>
@@ -41,18 +53,18 @@ function AddCustomerModal() {
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary" onClick={createCustomer} >Confirm</Button>
+          <Button variant="primary" onClick={createCustomer}>
+            Confirm
+          </Button>
         </Modal.Footer>
       </Modal>
     </>
   );
 }
 
-export default AddCustomerModal
+export default AddCustomerModal;
 
-
-
-// Parent Component
+/* // Parent Component
 import React, { useState } from "react";
 import ChildComponent from "./ChildComponent";
 
@@ -81,4 +93,4 @@ function ChildComponent({ onData }) {
   }
 
   return <button onClick={handleClick}>Send Data to Parent</button>;
-}
+} */

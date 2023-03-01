@@ -1,15 +1,20 @@
 import React from "react";
 import ButtonTableLine from "./ButtonTableLine";
 
-const TableLine = () => {
+const TableLine = ({ users,listCustomerRefresh }) => {
   return (
-    <tr>
-      <td>1</td>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-      <td className="w-25" ><ButtonTableLine /> </td>
-    </tr>
+    users &&
+    users.map((user,i) => (
+      <tr key={i} >
+        <td>{user._id}</td>
+        <td>{user.name}</td>
+        <td>{user.role}</td>
+        <td>{user.managerName}</td>
+        <td className="w-25">
+          <ButtonTableLine customerId={user._id} listCustomerRefresh={listCustomerRefresh} />{" "}
+        </td>
+      </tr>
+    ))
   );
 };
 

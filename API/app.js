@@ -1,7 +1,7 @@
 // Importation des modules nécessaires
 const express = require('express');
 const { default: mongoose } = require('mongoose');
-const { createUser } = require('./controllers/users');
+const { createUser, getAllUsers, deleteUser } = require('./controllers/users');
 const app = express();
 const cors = require('cors')
 const bodyParser = require("body-parser");
@@ -33,6 +33,8 @@ app.get('/', (req, res) => {
 });
 
 app.post("/user",createUser)
+app.delete("/user/:id",deleteUser)
+app.get("/users",getAllUsers)
 
 // Lancement du serveur
 app.listen(2800, () => {

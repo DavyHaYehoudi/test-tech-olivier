@@ -1,7 +1,7 @@
 import Table from "react-bootstrap/Table";
 import TableLine from "./TableLine";
 
-function DarkTable() {
+function DarkTable({users,listCustomerRefresh} ) {
   return (
     <Table striped bordered hover variant="dark">
       <thead>
@@ -14,7 +14,7 @@ function DarkTable() {
         </tr>
       </thead>
       <tbody>
-        <TableLine />
+        <TableLine users={users} listCustomerRefresh={listCustomerRefresh}/>
       </tbody>
     </Table>
   );
